@@ -8,16 +8,23 @@ import (
 )
 
 /*
-Usage: ./rnm [files] [old] [new]
-
-Attempts to rename all files and replace [old] with [new].
-*/
+ * Usage: ./rnm [files] [old] [new]
+ *
+ * Attempts to rename all files and replace [old] with [new].
+ */
 
 func main() {
 	// Flags.
-	dryRunFlag := flag.Bool("d", false, "Don't make any changes.")
+	dryRunFlag := flag.Bool("d", false, "Dry run, don't make any changes.")
+	versionFlag := flag.Bool("v", false, "Show the version number.")
 	flag.Parse()
 	args := flag.Args()
+
+	version := "rnm 0.0.0"
+	if *versionFlag {
+		fmt.Println(version)
+		return
+	}
 
 	// Fail early if there's not enough arguments.
 	if len(args) < 3 {
