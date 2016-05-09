@@ -38,7 +38,7 @@ func main() {
 	fmt.Printf("old: %s\nnew: %s\n\n", o, n)
 
 	// Expand any filename patterns.
-	a := args[0:len(args)-2]
+	a := args[0 : len(args)-2]
 	files := make([]string, 0, len(args))
 	for _, f := range a {
 		if strings.Contains(f, "*") {
