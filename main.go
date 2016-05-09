@@ -21,7 +21,7 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 
-	version := "rnm 0.0.0"
+	version := "rnm 0.1.0"
 	if *versionFlag {
 		fmt.Println(version)
 		return
