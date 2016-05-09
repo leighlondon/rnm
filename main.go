@@ -52,12 +52,12 @@ func main() {
 	fmt.Println("files:")
 	for _, f := range files {
 		s := strings.Replace(f, o, n, -1)
-		if s != f {
-			fmt.Printf("%s => %s\n", f, s)
-		} else {
+		if s == f {
+			// Don't overwrite if there's no update.
 			fmt.Println(f)
+			continue
 		}
-
+		fmt.Printf("%s => %s\n", f, s)
 		if !*dryRunFlag {
 			// Don't make the changes in a dry run.
 			if err := os.Rename(f, s); err != nil {
