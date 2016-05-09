@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -36,18 +37,30 @@ func main() {
 	n := args[len(args)-1]
 	fmt.Printf("old: %s\nnew: %s\n\n", o, n)
 
+	// Expand any filename patterns.
+	a := args[0:len(args)-2]
+	files := make([]string, 0, len(args))
+	for _, f := range a {
+		if strings.Contains(f, "*") {
+			matches, _ := filepath.Glob(f)
+			for _, m := range matches {
+				files = append(files, m)
+			}
+		}
+	}
+
 	fmt.Println("files:")
-	for i := 0; i < len(args)-2; i++ {
-		s := strings.Replace(args[i], o, n, -1)
-		if s != args[i] {
-			fmt.Printf("%s => %s\n", args[i], s)
+	for _, f := range files {
+		s := strings.Replace(f, o, n, -1)
+		if s != f {
+			fmt.Printf("%s => %s\n", f, s)
 		} else {
-			fmt.Println(args[i])
+			fmt.Println(f)
 		}
 
 		if !*dryRunFlag {
 			// Don't make the changes in a dry run.
-			if err := os.Rename(args[i], s); err != nil {
+			if err := os.Rename(f, s); err != nil {
 				fmt.Println(err)
 			}
 		}
