@@ -41,11 +41,6 @@ func main() {
 	a := args[0 : len(args)-2]
 	files := make([]string, 0, len(args))
 	for _, f := range a {
-		if !strings.Contains(f, "*") {
-			// If no glob found, just add the original.
-			files = append(files, f)
-			continue
-		}
 		matches, _ := filepath.Glob(f)
 		for _, m := range matches {
 			files = append(files, m)
