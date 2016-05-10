@@ -48,6 +48,10 @@ func main() {
 	}
 
 	fmt.Println("files:")
+	if len(files) == 0 {
+		fmt.Println("[no files match]")
+		return
+	}
 	for _, f := range files {
 		s := strings.Replace(f, o, n, -1)
 		if s == f {
