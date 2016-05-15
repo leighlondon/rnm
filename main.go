@@ -8,20 +8,29 @@ import (
 	"strings"
 )
 
-/*
- * Usage: ./rnm [files] [old] [new]
- *
- * Attempts to rename all files and replace [old] with [new].
- */
+const version = "0.1.0"
+const usage = "rnm " + version + `
+
+Attempts to rename all files and replace [old] with [new].
+
+Usage: rnm [options] <files..> <old> <new>
+
+Options:
+    -d	Dry run, don't make any changes.
+    -h	Show this screen.
+    -v	Show the version.
+`
 
 func main() {
 	// Flags.
 	dryRunFlag := flag.Bool("d", false, "Dry run, don't make any changes.")
 	versionFlag := flag.Bool("v", false, "Show the version number.")
+	flag.Usage = func() {
+		fmt.Printf(usage)
+	}
 	flag.Parse()
 	args := flag.Args()
 
-	version := "rnm 0.1.0"
 	if *versionFlag {
 		fmt.Println(version)
 		return
@@ -29,6 +38,7 @@ func main() {
 
 	// Fail early if there's not enough arguments.
 	if len(args) < 3 {
+		fmt.Printf(usage)
 		return
 	}
 
