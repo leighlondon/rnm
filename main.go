@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-const version = "0.1.0"
+const version = "0.2.0"
 const usage = "rnm " + version + `
 
 Attempts to rename all files and replace [old] with [new].
