@@ -1,0 +1,13 @@
+root = true
+
+# Use Unix style endings on every file.
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Make sure it uses tabs for Go.
+[*.go]
+indent_style = tab
+indent_size = 8
