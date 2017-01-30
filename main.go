@@ -8,8 +8,9 @@ import (
 	"strings"
 )
 
-const version = "0.2.0"
-const usage = "rnm " + version + `
+// Version number of the program.
+const Version = "0.3.0"
+const usage = "rnm " + Version + `
 
 Attempts to rename all files and replace [old] with [new].
 
@@ -25,14 +26,12 @@ func main() {
 	// Flags.
 	dryRunFlag := flag.Bool("d", false, "Dry run, don't make any changes.")
 	versionFlag := flag.Bool("v", false, "Show the version number.")
-	flag.Usage = func() {
-		fmt.Printf(usage)
-	}
+	flag.Usage = func() { fmt.Printf(usage) }
 	flag.Parse()
 	args := flag.Args()
 
 	if *versionFlag {
-		fmt.Println(version)
+		fmt.Println(Version)
 		return
 	}
 
