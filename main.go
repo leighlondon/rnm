@@ -13,7 +13,7 @@ const usage = "rnm " + version + `
 
 Attempts to rename all files and replace [old] with [new].
 
-Usage: rnm [options] <files..> <old> <new>
+Usage: rnm [options] <old> <new> <files..>
 
 Options:
     -d	Dry run, don't make any changes.
@@ -43,12 +43,12 @@ func main() {
 	}
 
 	// Grab the patterns.
-	o := args[len(args)-2]
-	n := args[len(args)-1]
+	o := args[0]
+	n := args[1]
 	fmt.Printf("old: %s\nnew: %s\n\n", o, n)
 
 	// Expand any filename patterns.
-	a := args[0 : len(args)-2]
+	a := args[2:]
 	files := make([]string, 0, len(args))
 	for _, f := range a {
 		matches, _ := filepath.Glob(f)
