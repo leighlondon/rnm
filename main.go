@@ -9,8 +9,8 @@ import (
 )
 
 // Version number of the program.
-const Version = "0.3.0"
-const usage = "rnm " + Version + `
+const version = "0.3.0"
+const usage = "rnm " + version + `
 
 Attempts to rename all files and replace [old] with [new].
 
@@ -22,16 +22,10 @@ Options:
     -v	Show the version.
 `
 
-func main() {
-	// Flags.
-	dryRunFlag := flag.Bool("d", false, "Dry run, don't make any changes.")
-	versionFlag := flag.Bool("v", false, "Show the version number.")
-	flag.Usage = func() { fmt.Printf(usage) }
-	flag.Parse()
-	args := flag.Args()
+func run(opts Options, args ...string) {
 
-	if *versionFlag {
-		fmt.Println(Version)
+	if opts.Version {
+		fmt.Println(version)
 		return
 	}
 
@@ -69,11 +63,30 @@ func main() {
 			continue
 		}
 		fmt.Printf("%s => %s\n", f, s)
-		if !*dryRunFlag {
+		if !opts.DryRun {
 			// Don't make the changes in a dry run.
 			if err := os.Rename(f, s); err != nil {
 				fmt.Println(err)
 			}
 		}
 	}
+}
+
+type Options struct {
+	DryRun  bool
+	Version bool
+}
+
+func main() {
+
+	var opts Options
+
+	// Flags.
+	flag.BoolVar(&opts.DryRun, "d", false, "Dry run, don't make any changes.")
+	flag.BoolVar(&opts.Version, "v", false, "Show the version number.")
+	flag.Usage = func() { fmt.Printf(usage) }
+	flag.Parse()
+	args := flag.Args()
+
+	run(opts, args...)
 }
