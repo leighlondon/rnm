@@ -9,7 +9,7 @@ import (
 )
 
 // Version number of the program.
-const version = "0.3.0"
+const version = "0.4.0"
 const usage = "rnm " + version + `
 
 Attempts to rename all files and replace [old] with [new].
